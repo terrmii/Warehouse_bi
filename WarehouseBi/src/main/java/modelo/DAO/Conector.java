@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Conector {
 	
-	protected Connection con;
+	public static Connection con;
 
     private String host = "localhost";
     private String bbdd = "warehouse_bi";
@@ -16,7 +16,7 @@ public class Conector {
     public void conectar() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            this.con = DriverManager.getConnection("jdbc:mysql://" + host + "/" + bbdd, usuario, contrasenia);
+            Conector.con = DriverManager.getConnection("jdbc:mysql://" + host + "/" + bbdd, usuario, contrasenia);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -44,6 +44,6 @@ public class Conector {
      * @param con the con to set
      */
     public void setCon(Connection con) {
-        this.con = con;
+        Conector.con = con;
     }
 }

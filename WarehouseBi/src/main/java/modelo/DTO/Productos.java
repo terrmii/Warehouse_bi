@@ -8,7 +8,7 @@ public class Productos {
 	private String codigo;
 	private String nombre;
 	private int cantidad;
-	private Double precio;
+	private double precio;
 	private Date caducidad;
 	private int id_seccion;
 	
