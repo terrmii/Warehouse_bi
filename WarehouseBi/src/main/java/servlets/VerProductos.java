@@ -13,13 +13,13 @@ import modelo.DAO.ModeloProducto;
  * Servlet implementation class Productos
  */
 @WebServlet("/Productos")
-public class Productos extends HttpServlet {
+public class VerProductos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Productos() {
+    public VerProductos() {
         super();
     }
 

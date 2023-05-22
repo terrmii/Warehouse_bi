@@ -2,7 +2,7 @@ package modelo.DTO;
 
 import java.util.Date;
 
-public class Productos {
+public class Producto {
 
 	private int id;
 	private String codigo;
@@ -11,12 +11,13 @@ public class Productos {
 	private double precio;
 	private Date caducidad;
 	private int id_seccion;
+	private Seccion seccion;
 	
-	public Productos() {
-		
+	public Producto() {
+		super();
 	}
 	
-	public Productos(int id, String codigo, String nombre, int cantidad, Double precio, Date caducidad, int id_seccion) {
+	public Producto(int id, String codigo, String nombre, int cantidad, Double precio, Date caducidad, int id_seccion, Seccion seccion) {
 		this.id = id;
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -24,6 +25,7 @@ public class Productos {
 		this.precio = precio;
 		this.caducidad = caducidad;
 		this.id_seccion = id_seccion;
+		this.seccion = seccion;
 	}
 	
 	public int getId() {
@@ -67,6 +69,14 @@ public class Productos {
 	}
 	public void setId_seccion(int id_seccion) {
 		this.id_seccion = id_seccion;
+	}
+
+	public Seccion getSeccion() {
+		return seccion;
+	}
+
+	public void setSeccion(Seccion seccion) {
+		this.seccion = seccion;
 	}
 	
 	
