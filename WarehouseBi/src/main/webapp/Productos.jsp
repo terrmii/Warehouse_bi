@@ -13,7 +13,15 @@
 
 <form method ="post" action="Productos">
   <input type="text" placeholder="Buscar.." name="buscar">
-  <button type="submit"><i class="fa fa-search"></i></button>
+  
+  <button type="submit" name ="boton" value ="buscar"><i class="fa fa-search"></i></button>
+</form>
+
+<form method = "post" action="Productos">
+	<input type = "number" placeholder = "precio min" name = "preciomin">
+	<input type ="number" placeholder = "precio max" name = "preciomax">
+	
+	<button type ="submit" name = "boton" value= "precio"><i class="fa fa-search"></i></button>
 </form>
 
 <div class = "container">
@@ -21,7 +29,12 @@
 	  <thead>
 	    <tr>
 	      <th scope="col">Id</th>
-	      <th scope="col">Codigo</th>
+	      <th scope="col">Codigo
+	      <!-- Ascendente -->
+	      <a href="./Productos?orden=asc" style="color: black;"><i class="fa fa-sort-asc" aria-hidden="true"></i></a>
+	      <!-- Descendiente -->
+	      <a href="./Productos?orden=desc" style="color: black;"><i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+	      </th>
 	      <th scope="col">Nombre</th>
 	      <th scope="col">Cantidad</th>
 	      <th scope="col">Precio</th>

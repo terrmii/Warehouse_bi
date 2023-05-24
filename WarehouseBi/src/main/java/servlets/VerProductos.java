@@ -52,27 +52,56 @@ public class VerProductos extends HttpServlet {
 		
 		productos = mp.visualizarProductos();
 
-		/*
-		 * Recoger el "name" de jsp de busqueda
-		 */
-		String busqueda = request.getParameter("buscar");
-			
-		ListIterator<Producto> buscarProductos = productos.listIterator();
 		
+		String boton = request.getParameter("boton");
+		if(boton.equals("buscar")) {
 		
-		while(buscarProductos.hasNext()) {
-			
-			Producto compararProducto = buscarProductos.next();
-			
 			/*
-			 * Distinto del codigo Y distinto del nombre 
+			 * Recoger el "name" de jsp de busqueda y pasarlo a string para poder compararlo
 			 */
-			if(!compararProducto.getCodigo().contains(busqueda) && !compararProducto.getNombre().contains(busqueda)) {
-				buscarProductos.remove();
+			String busqueda = request.getParameter("buscar");
+				
+			ListIterator<Producto> buscarProductos = productos.listIterator();
+			
+			while(buscarProductos.hasNext()) {
+				
+				Producto compararProducto = buscarProductos.next();
+				
+				/*
+				 * Distinto del codigo Y distinto del nombre 
+				 */
+				if(!compararProducto.getCodigo().contains(busqueda) && !compararProducto.getNombre().contains(busqueda)) {
+					buscarProductos.remove();
+				}
+				
+			}
+		}
+		else if(boton.equals("precio")) {
+			
+			double preciomin = 0;
+			double preciomax = 9999;		
+			
+			if(request.getParameter("preciomin") != "") {
+				preciomin = Double.parseDouble(request.getParameter("preciomin")); 
+			}
+			
+			if(request.getParameter("preciomax") != "") {
+				preciomax = Double.parseDouble(request.getParameter("preciomax"));
+			}
+			
+			ListIterator<Producto> precioProductos = productos.listIterator();
+
+			while(precioProductos.hasNext()) {
+				
+				Producto contienePrecio = precioProductos.next();
+				
+				if(!(contienePrecio.getPrecio() > preciomin) || !(contienePrecio.getPrecio() < preciomax)) {
+					precioProductos.remove();
+				}
+
 			}
 			
 		}
-		
 		request.setAttribute("productos", productos);
 		request.getRequestDispatcher("Productos.jsp").forward(request, response);
 	}
