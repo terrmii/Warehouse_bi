@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<form class="example" method ="post" action="VerProducto">
+<form method ="post" action="Productos">
   <input type="text" placeholder="Buscar.." name="buscar">
   <button type="submit"><i class="fa fa-search"></i></button>
 </form>
@@ -26,7 +26,8 @@
 	      <th scope="col">Cantidad</th>
 	      <th scope="col">Precio</th>
 	      <th scope="col">Caducidad</th>
-	      <th scope="col">Seccion</th>	      
+	      <th scope="col">Seccion</th>	
+	      <th scope="col">Modificar</th>	
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -41,7 +42,8 @@
 	      <td>${producto.precio}</td>
 	      <td>${producto.caducidad}</td>
 	      <td>${producto.seccion.nombre}</td>
-	      
+	      <td><a href = "ModificarProductos?id=<c:out value="${producto.id}"></c:out>&codigo=<c:out value="${producto.codigo}"></c:out>&nombre=<c:out value="${producto.nombre}"></c:out>&cantidad=<c:out value="${producto.cantidad}"></c:out>&precio=<c:out value="${producto.precio}"></c:out>&caducidad=<c:out value="${producto.caducidad}"></c:out>&secciones=<c:out value="${producto.seccion.id}"></c:out>">Modificar</a></td>
+	   
 	    </tr>
 	    </c:forEach>
 	  </tbody>

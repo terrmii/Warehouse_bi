@@ -10,7 +10,7 @@ import modelo.DTO.Seccion;
 
 public class ModeloSeccion {
 
-	public Seccion visualizarSecciones(int id){
+	public Seccion visualizarSeccion(int id){
 		
 		Conector con = new Conector();
 		Seccion seccion = new Seccion();
