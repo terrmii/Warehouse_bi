@@ -31,9 +31,9 @@
 	      <th scope="col">Id</th>
 	      <th scope="col">Codigo
 	      <!-- Ascendente -->
-	      <a href="./Productos?orden=asc" style="color: black;"><i class="fa fa-sort-asc" aria-hidden="true"></i></a>
+	      <a href="Productos?orden=asc" style="color: black;"><i class="fa fa-sort-asc" aria-hidden="true"></i></a>
 	      <!-- Descendiente -->
-	      <a href="./Productos?orden=desc" style="color: black;"><i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+	      <a href="Productos?orden=desc" style="color: black;"><i class="fa fa-sort-desc" aria-hidden="true"></i></a>
 	      </th>
 	      <th scope="col">Nombre</th>
 	      <th scope="col">Cantidad</th>
@@ -64,6 +64,8 @@
 	<a href = "InsertarProductos" class = "btn btn-primary">
 	Insertar
 	</a>
+	
+	
 </div>
 </body>
 </html>

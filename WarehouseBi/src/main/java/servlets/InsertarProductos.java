@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import modelo.DAO.ModeloProducto;
 import modelo.DAO.ModeloSeccion;
+import modelo.DAO.ModeloSupermercado;
 import modelo.DTO.Producto;
 import modelo.DTO.Seccion;
+import modelo.DTO.Supermercado;
 
 /**
  * Servlet implementation class InsertarProductos
@@ -37,7 +39,10 @@ public class InsertarProductos extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// LLama al jsp del Insertar
 		ModeloSeccion ms = new ModeloSeccion();
+		ModeloSupermercado msu = new ModeloSupermercado();
+		
 		request.setAttribute("secciones", ms.visualizarSecciones());
+		request.setAttribute("supermercados", msu.visualizarSupermercados());
 		request.getRequestDispatcher("InsertarProductos.jsp").forward(request, response);	
 	}
 
@@ -65,6 +70,12 @@ public class InsertarProductos extends HttpServlet {
 		seccion.setId(Integer.parseInt(request.getParameter("secciones")));
 		producto.setSeccion(seccion);
 		
+		Supermercado supermercado = new Supermercado();
+		
+		supermercado.setId(Integer.parseInt(request.getParameter("nomnbreSuper")));
+		
+		
+		
 //		producto.setId_seccion(Integer.parseInt(request.getParameter("secciones")));
 		
 		boolean existe = ModeloProducto.existeCodigo(producto.getCodigo());
@@ -72,6 +83,7 @@ public class InsertarProductos extends HttpServlet {
 		Date hoy = new Date();
 		if(existe == false && producto.getPrecio() > 0 && producto.getCantidad() > 0 && producto.getCaducidad().after(hoy)) {
 			ModeloProducto.insertarProducto(producto);
+			ModeloSupermercado.insertarProductoSuper(supermercado, ModeloSupermercado.leerIdSegunCodigo(producto.getCodigo()));
 			response.sendRedirect("Productos");
 		}
 		else {

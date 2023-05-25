@@ -2,8 +2,11 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ListIterator;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,13 +33,26 @@ public class VerProductos extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		ModeloProducto mp = new ModeloProducto();
-		request.setAttribute("productos", mp.visualizarProductos());
-		request.getRequestDispatcher("Productos.jsp").forward(request, response);	
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ModeloProducto mp = new ModeloProducto();
+        String orden = request.getParameter("orden");
+        
+        ArrayList<Producto> productos = mp.visualizarProductos();
+        
+        if (orden == null || !orden.equals("desc")) {
+            orden = "";
+        }
+        
+        if (orden.equals("desc")) {
+            Collections.sort(productos, Comparator.comparing(Producto::getCodigo).reversed());
+        } else if(orden.equals("asc")){
+            Collections.sort(productos, Comparator.comparing(Producto::getCodigo));
+        }
+        
+        request.setAttribute("productos", productos);
+        request.getRequestDispatcher("Productos.jsp").forward(request, response);
+    }
 
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
