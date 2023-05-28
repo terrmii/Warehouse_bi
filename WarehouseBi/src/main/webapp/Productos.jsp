@@ -41,6 +41,7 @@
 	      <th scope="col">Caducidad</th>
 	      <th scope="col">Seccion</th>	
 	      <th scope="col">Modificar</th>	
+	      <th scope="col">Eliminar</th>	
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -56,6 +57,7 @@
 	      <td>${producto.caducidad}</td>
 	      <td>${producto.seccion.nombre}</td>
 	      <td><a href = "ModificarProductos?id=<c:out value="${producto.id}"></c:out>&codigo=<c:out value="${producto.codigo}"></c:out>&nombre=<c:out value="${producto.nombre}"></c:out>&cantidad=<c:out value="${producto.cantidad}"></c:out>&precio=<c:out value="${producto.precio}"></c:out>&caducidad=<c:out value="${producto.caducidad}"></c:out>&secciones=<c:out value="${producto.seccion.id}"></c:out>">Modificar</a></td>
+	   	  <td><a style = "color: red; text-decoration: none;" href = "EliminarProductos?id=<c:out value="${producto.id}"></c:out>">- 1</a></td>
 	   
 	    </tr>
 	    </c:forEach>
