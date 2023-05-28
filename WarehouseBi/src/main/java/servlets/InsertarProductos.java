@@ -72,7 +72,7 @@ public class InsertarProductos extends HttpServlet {
 		
 		Supermercado supermercado = new Supermercado();
 		
-		supermercado.setId(Integer.parseInt(request.getParameter("nomnbreSuper")));
+		supermercado.setId(Integer.parseInt(request.getParameter("nombreSuper")));
 		
 		
 		

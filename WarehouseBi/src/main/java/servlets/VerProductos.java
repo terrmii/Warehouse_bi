@@ -111,7 +111,7 @@ public class VerProductos extends HttpServlet {
 				
 				Producto contienePrecio = precioProductos.next();
 				
-				if(!(contienePrecio.getPrecio() > preciomin) || !(contienePrecio.getPrecio() < preciomax)) {
+				if(!(contienePrecio.getPrecio() >= preciomin) || !(contienePrecio.getPrecio() <= preciomax)) {
 					precioProductos.remove();
 				}
 
