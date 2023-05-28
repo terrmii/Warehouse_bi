@@ -50,47 +50,46 @@ public class InsertarProductos extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Date fecha = null;
-		try {
-			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha"));
-	
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		Producto producto = new Producto();
-		producto.setCodigo(request.getParameter("codigo"));
-		producto.setNombre(request.getParameter("nombre"));
-		producto.setCantidad(Integer.parseInt(request.getParameter("cantidad")));
-		producto.setPrecio(Double.parseDouble(request.getParameter("precio")));
-		producto.setCaducidad(fecha);
+	    // Obtener los valores de los checkboxes seleccionados
+	    String[] supermercadoIds = request.getParameterValues("nombreSuper[]");
+	    
+	    Date fecha = null;
+	    try {
+	        fecha = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha"));
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    Producto producto = new Producto();
+	    producto.setCodigo(request.getParameter("codigo"));
+	    producto.setNombre(request.getParameter("nombre"));
+	    producto.setCantidad(Integer.parseInt(request.getParameter("cantidad")));
+	    producto.setPrecio(Double.parseDouble(request.getParameter("precio")));
+	    producto.setCaducidad(fecha);
 
-		Seccion seccion = new Seccion();
-		
-		seccion.setId(Integer.parseInt(request.getParameter("secciones")));
-		producto.setSeccion(seccion);
-		
-		Supermercado supermercado = new Supermercado();
-		
-		supermercado.setId(Integer.parseInt(request.getParameter("nombreSuper")));
-		
-		
-		
-//		producto.setId_seccion(Integer.parseInt(request.getParameter("secciones")));
-		
-		boolean existe = ModeloProducto.existeCodigo(producto.getCodigo());
-		
-		Date hoy = new Date();
-		if(existe == false && producto.getPrecio() > 0 && producto.getCantidad() > 0 && producto.getCaducidad().after(hoy)) {
-			ModeloProducto.insertarProducto(producto);
-			ModeloSupermercado.insertarProductoSuper(supermercado, ModeloSupermercado.leerIdSegunCodigo(producto.getCodigo()));
-			response.sendRedirect("Productos");
-		}
-		else {
-			request.setAttribute("error", "Datos erroneos");
-			doGet(request, response);
-		}
+	    Seccion seccion = new Seccion();
+	    seccion.setId(Integer.parseInt(request.getParameter("secciones")));
+	    producto.setSeccion(seccion);
 
+	    boolean existe = ModeloProducto.existeCodigo(producto.getCodigo());
+
+	    Date hoy = new Date();
+	    
+	    if (existe == false && producto.getPrecio() > 0 && producto.getCantidad() > 0 && producto.getCaducidad().after(hoy)) {
+	        ModeloProducto.insertarProducto(producto);
+	        
+	        // Insertar producto para cada supermercado seleccionado
+	        for (String supermercadoId : supermercadoIds) {
+	            Supermercado supermercado = new Supermercado();
+	            supermercado.setId(Integer.parseInt(supermercadoId));
+	            ModeloSupermercado.insertarProductoSuper(supermercado, ModeloSupermercado.leerIdSegunCodigo(producto.getCodigo()));
+	        }
+	        
+	        response.sendRedirect("Productos");
+	    } else {
+	        request.setAttribute("error", "Datos erroneos");
+	        doGet(request, response);
+	    }
 	}
 
 }

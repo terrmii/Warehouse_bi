@@ -95,7 +95,7 @@ public static void insertarProductoSuper(Supermercado supermercado, int id) {
 	
 	try {
 		PreparedStatement ps = con.getCon().prepareStatement("INSERT INTO productos_supermercados (id_producto, id_supermercado) VALUES (?, ?)");
-		ps.setInt(id, 1);
+		ps.setInt(1, id);
 		ps.setInt(2, supermercado.getId());
 		
 		ps.execute();
@@ -107,4 +107,6 @@ public static void insertarProductoSuper(Supermercado supermercado, int id) {
 	
 	con.cerrar();
 	}
+
+
 }
