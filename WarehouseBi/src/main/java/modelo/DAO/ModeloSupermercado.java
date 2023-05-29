@@ -89,13 +89,13 @@ public static int leerIdSegunCodigo(String codigo) {
 }
 
 
-public static void insertarProductoSuper(Supermercado supermercado, int id) {
+public static void insertarProductoSuper(Supermercado supermercado, int idProducto) {
 	Conector con = new Conector();
 	con.conectar();
 	
 	try {
 		PreparedStatement ps = con.getCon().prepareStatement("INSERT INTO productos_supermercados (id_producto, id_supermercado) VALUES (?, ?)");
-		ps.setInt(1, id);
+		ps.setInt(1, idProducto);
 		ps.setInt(2, supermercado.getId());
 		
 		ps.execute();
@@ -107,6 +107,58 @@ public static void insertarProductoSuper(Supermercado supermercado, int id) {
 	
 	con.cerrar();
 	}
+
+
+public static void eliminarProductosSupermercado(int idProducto) {
+	
+	Conector con = new Conector();
+	con.conectar();
+	
+	try {
+		PreparedStatement ps = con.getCon().prepareStatement("DELETE FROM productos_supermercados WHERE id_producto = ?");
+		
+		ps.setInt(1, idProducto);
+		
+		ps.execute();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	}
+
+public static void comprobarProductoSupermercado(int idProducto) {
+	
+	Conector con = new Conector();
+	con.conectar();
+	
+	
+}
+//create a method to find out if a product is in a productos_supermercado
+
+public static boolean existeProductoSupermercado(int idProducto) {
+    
+    Conector con = new Conector();
+    con.conectar();
+    
+    try {
+        PreparedStatement ps = con.getCon().prepareStatement("SELECT * FROM productos_supermercados WHERE id_producto =? ");
+        
+        ps.setInt(1, idProducto);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next()) {
+            return true;
+        }
+        
+    } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    
+    return false;
+}
 
 
 }

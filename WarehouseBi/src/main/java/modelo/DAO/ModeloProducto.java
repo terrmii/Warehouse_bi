@@ -152,4 +152,62 @@ public class ModeloProducto {
 		
 	}
 	
+	public static void eliminarCantidadMenosUno(int id) {
+		
+		Conector con = new Conector();
+		con.conectar();
+		
+		try {
+			PreparedStatement ps = con.getCon().prepareStatement("UPDATE productos SET cantidad = cantidad - 1 WHERE id = ?;");
+			
+			ps.setInt(1, id);
+			
+			ps.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void eliminarProducto(int id) {
+		Conector con = new Conector();
+		con.conectar();
+		
+		try {
+			PreparedStatement ps = con.getCon().prepareStatement("DELETE FROM productos WHERE id = ?");
+			ps.setInt(1, id);
+			
+			ps.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static int comprobarStock(int id) {
+		
+		Conector con = new Conector();
+		con.conectar();
+		int stock = 0;
+		
+		try {
+			PreparedStatement ps = con.getCon().prepareStatement("SELECT cantidad FROM productos WHERE id = ?");
+			ps.setInt(1, id);
+			
+			ps.execute();
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+			stock = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return stock;
+	}
+	
 }

@@ -122,4 +122,5 @@ public class VerProductos extends HttpServlet {
 		request.getRequestDispatcher("Productos.jsp").forward(request, response);
 	}
 
+	
 }
