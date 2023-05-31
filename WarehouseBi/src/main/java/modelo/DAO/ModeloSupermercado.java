@@ -127,15 +127,6 @@ public static void eliminarProductosSupermercado(int idProducto) {
 	
 	}
 
-public static void comprobarProductoSupermercado(int idProducto) {
-	
-	Conector con = new Conector();
-	con.conectar();
-	
-	
-}
-//create a method to find out if a product is in a productos_supermercado
-
 public static boolean existeProductoSupermercado(int idProducto) {
     
     Conector con = new Conector();
@@ -159,6 +150,5 @@ public static boolean existeProductoSupermercado(int idProducto) {
     
     return false;
 }
-
 
 }

@@ -3,6 +3,7 @@ package modelo.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import modelo.DTO.Producto;
@@ -48,7 +49,7 @@ public class ModeloProducto {
 		con.conectar();
 		
 		try {
-			PreparedStatement ps = con.getCon().prepareStatement("INSERT INTO productos (codigo, nombre, cantidad, precio, caducidad, id_seccion) VALUES (?,?,?,?,?,?)");
+			PreparedStatement ps = con.getCon().prepareStatement("INSERT INTO productos (codigo, nombre, cantidad, precio, caducidad, id_seccion) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, producto.getCodigo());
 			ps.setString(2, producto.getNombre());
 			ps.setInt(3, producto.getCantidad());
@@ -57,6 +58,14 @@ public class ModeloProducto {
 			ps.setInt(6, producto.getSeccion().getId());
 			
 			ps.execute();
+			
+			
+			ResultSet generatedKeys = ps.getGeneratedKeys();
+			if(generatedKeys.next()) {
+				int idGenerado = generatedKeys.getInt(1);
+				System.out.println("id creada = " + idGenerado);
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -208,6 +217,24 @@ public class ModeloProducto {
 		}
 		
 		return stock;
+	}
+	
+	public static void eliminarProductosSegunCodigos(String codigo) {
+		
+        Conector con = new Conector();
+        con.conectar();
+        
+        try {
+            PreparedStatement ps = con.getCon().prepareStatement("DELETE FROM productos WHERE codigo = ?");
+            
+            ps.setString(1, codigo);
+            
+            ps.execute();
+            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 	
 }
